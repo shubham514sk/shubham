@@ -1,6 +1,77 @@
- an AI-powered platform that helps students like Vivek bridge the gap between their current skills and career aspirations.
-The platform should assess a student’s existing skills, identify areas for improvement and recommend personalized learning 
-paths. It should provide tailored course suggestions based on individual goals and career trends, while offering periodic 
-assessments to track progress. Instead of offering generic courses, the platform should provide specific interventions and 
-nudges, such as actionable feedback and targeted skill-building activities, ensuring that students receive the right guidance to
-meet their career objectives and improve their employability.
+import java.util.*;
+import (link unavailable)*;
+
+class Student {
+    String name;
+    List<String> skills;
+    List<String> goals;
+
+    public Student() {
+        skills = new ArrayList<>();
+        goals = new ArrayList<>();
+    }
+}
+
+class Course {
+    String name;
+    List<String> skills;
+
+    public Course() {
+        skills = new ArrayList<>();
+    }
+}
+
+public class Main {
+    // Function to trim whitespace from a string
+    public static String trim(String str) {
+        return str.trim();
+    }
+
+    public static void recommendCourses(Student student) {
+        Map<String, Course> courses = new HashMap<>();
+        courses.put("Programming", new Course(Arrays.asList("Python", "Java", "C++")));
+        courses.put("Data Analysis", new Course(Arrays.asList("Python", "R", "SQL")));
+        courses.put("Digital Marketing", new Course(Arrays.asList("SEO", "Social Media", "Google Analytics")));
+
+        List<String> recommendedCourses = new ArrayList<>();
+        for (Map.Entry<String, Course> entry : courses.entrySet()) {
+            for (String skill : entry.getValue().skills) {
+                if (student.skills.contains(skill)) {
+                    recommendedCourses.add(entry.getKey());
+                    break;
+                }
+            }
+        }
+
+        System.out.println("Recommended Courses for " + student.name + ":");
+        if (recommendedCourses.isEmpty()) {
+            System.out.println("No courses recommended based on your skills.");
+        } else {
+            for (String course : recommendedCourses) {
+                System.out.println("- " + course);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Student student = new Student();
+        System.out.print("Enter student name: ");
+        student.name = new BufferedReader(new InputStreamReader(System.in)).readLine();
+
+        System.out.print("Enter student skills (comma separated): ");
+        String skills = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        String[] skillArray = skills.split(",");
+        for (String skill : skillArray) {
+            student.skills.add(trim(skill));
+        }
+
+        System.out.print("Enter student goals (comma separated): ");
+        String goals = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        String[] goalArray = goals.split(",");
+        for (String goal : goalArray) {
+            student.goals.add(trim(goal));
+        }
+
+        recommendCourses(student);
+    }
+}
